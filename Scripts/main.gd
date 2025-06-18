@@ -47,5 +47,8 @@ func setup_board():
 			var y_pos = rank * square_size + (square_size / 2)
 			
 			new_piece.position = Vector2(x_pos, y_pos)
-			
+
 			add_child(new_piece)
+
+func clear_markers():
+	get_tree().call_group("markers", "queue_free")

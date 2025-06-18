@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dl2rsy6a5mmsx"]
 
-[ext_resource type="Script" uid="uid://day1ntdlvcxyx" path="res://Scripts/main.gd" id="1_8gbba"]
+[ext_resource type="Script" uid="uid://day1ntdlvcxyx" path="res://Scripts/main.gd" id="1_jjgbg"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jjgbg"]
 load_path = "res://.godot/imported/Chess_Board.png-60a8eb47d8549ad0f91f770289be89c6.ctex"
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_8gbba")
+script = ExtResource("1_jjgbg")
 
 [node name="Board" type="Sprite2D" parent="."]
 position = Vector2(500, 500)

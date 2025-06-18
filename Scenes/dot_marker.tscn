@@ -4,3 +4,4 @@
 
 [node name="DotMarker" type="Node2D"]
 script = ExtResource("1_v5npr")
+radius = 18.0
