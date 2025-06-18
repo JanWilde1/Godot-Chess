@@ -24,21 +24,19 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 				if colour == "white":
 					mult = -1
 				for i in 2:
-					var marker_piece = marker_scene.instantiate()
-
-					marker_piece.add_to_group("markers")
-
-					marker_piece.position = Vector2((self.position.x), (self.position.y + (mult*((i+1) * square_size))))
-					get_parent().add_child(marker_piece)
+					var new_marker = marker_scene.instantiate()
+					new_marker.add_to_group("markers")
+					new_marker.position = Vector2((self.position.x), (self.position.y + (mult*((i+1) * square_size))))
+					new_marker.z_index = 2
+					get_parent().add_child(new_marker)
 			if type == "knight":
 				switch = 1
 				if colour == "white":
 					mult = -1
 				for i in 2:
-					var marker_piece = marker_scene.instantiate()
-
-					marker_piece.add_to_group("markers")
-
-					marker_piece.position = Vector2(self.position.x + (mult * switch * square_size), (self.position.y + (mult * 2 * square_size)))
+					var new_marker = marker_scene.instantiate()
+					new_marker.add_to_group("markers")
+					new_marker.position = Vector2(self.position.x + (mult * switch * square_size), (self.position.y + (mult * 2 * square_size)))
+					new_marker.z_index = 2
+					get_parent().add_child(new_marker)
 					switch -= 2
-					get_parent().add_child(marker_piece)

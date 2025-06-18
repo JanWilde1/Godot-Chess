@@ -3,6 +3,9 @@ extends Node2D
 const piece_scene = preload("res://Scenes/piece.tscn")
 const square_size = 125
 
+@export var light_square_colour = Color.WHITE
+@export var dark_square_colour = Color.DARK_CYAN
+
 var starting_position = [
 	"br", "bn", "bb", "bq", "bk", "bb", "bn", "br",
 	"bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp",
@@ -16,8 +19,29 @@ var starting_position = [
 
 func _ready():
 	setup_board()
+	setup_pieces()
 	
 func setup_board():
+	for i in 64:
+		var file = i % 8
+		var rank = i / 8
+
+		var square = ColorRect.new()
+
+		if (file + rank) % 2 == 0:
+			square.color = dark_square_colour
+		else:
+			square.color = light_square_colour
+
+		square.size = Vector2(square_size, square_size)
+		square.position = Vector2(file * square_size, rank * square_size)
+		square.z_index = 0
+		square.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+		add_child(square)
+
+
+func setup_pieces():
 	for i in starting_position.size():
 		var piece_code = starting_position[i]
 		
@@ -47,6 +71,7 @@ func setup_board():
 			var y_pos = rank * square_size + (square_size / 2)
 			
 			new_piece.position = Vector2(x_pos, y_pos)
+			new_piece.z_index = 1
 
 			add_child(new_piece)
 
