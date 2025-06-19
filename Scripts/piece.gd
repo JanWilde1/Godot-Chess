@@ -1,13 +1,9 @@
 extends Area2D
 
-const marker_scene = preload("res://Scenes/dot_marker.tscn")
+signal selected_piece(piece)
 
-@export var colour = "white"
-@export var type = "pawn"
-
-const square_size = 125
-var mult = 1
-var switch = 1
+@export_enum("white", "black") var colour: String = "white"
+@export_enum("pawn", "rook", "knight", "bishop", "queen", "king") var type: String = "pawn"	
 
 func _ready():
 	update_texture()
@@ -16,27 +12,6 @@ func update_texture():
 	var tex_path = "res://Assets/Pieces/" + colour + "-" + type + ".png"
 	$Sprite.texture = load(tex_path)
 
-func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-			get_parent().clear_markers()
-			if type == "pawn":
-				if colour == "white":
-					mult = -1
-				for i in 2:
-					var new_marker = marker_scene.instantiate()
-					new_marker.add_to_group("markers")
-					new_marker.position = Vector2((self.position.x), (self.position.y + (mult*((i+1) * square_size))))
-					new_marker.z_index = 2
-					get_parent().add_child(new_marker)
-			if type == "knight":
-				switch = 1
-				if colour == "white":
-					mult = -1
-				for i in 2:
-					var new_marker = marker_scene.instantiate()
-					new_marker.add_to_group("markers")
-					new_marker.position = Vector2(self.position.x + (mult * switch * square_size), (self.position.y + (mult * 2 * square_size)))
-					new_marker.z_index = 2
-					get_parent().add_child(new_marker)
-					switch -= 2
+func _on_input_event(_viewport, event, _shape_idx):
+	if event is InputEventMouseButton and event.is_pressed():
+		emit_signal("selected_piece", self)
